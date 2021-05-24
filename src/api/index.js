@@ -53,12 +53,12 @@ export const feedProducts = () => {
   products.forEach((product) => {
     const docRef = allProductsCollectionRef.doc();
     const id = docRef.id;
-    const user = auth.currentUser._id;
+    // const user = auth.currentUser._id;
 
     // Store Data for Aggregation Queries
     docRef.set({
       ...product,
-      user,
+      // user,
       id
     });
   })
@@ -77,11 +77,11 @@ export const registerWithEmailPassword = async (email, password, displayName) =>
 
 export const updateUserInfoApi = async (email, password, displayName) => {
   const user = auth.currentUser;
-  if(displayName)
+  if (displayName)
     await user.updateProfile({ displayName });
-  if(email)
+  if (email)
     await user.updateEmail(String(email));
-  if(password)
+  if (password)
     await user.updatePassword(password);
   return user;
 }
@@ -134,6 +134,6 @@ export const signOut = () => {
 
 export const checkLoginApi = () => {
   const user = auth.currentUser;
-  return user.uid?  true : false;
+  return user.uid ? true : false;
 }
 

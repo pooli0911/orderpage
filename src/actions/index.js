@@ -233,13 +233,13 @@ export const createOrder = async (dispatch, cart) => {
       shippingPrice: cart.shippingPrice,
       taxPrice: cart.taxPrice,
       totalPrice: cart.totalPrice,
-    };    
+    };
     const orderInfo = await createOrderApi(item);
-    dispatch({ 
-      type: SUCCESS_ORDER_CREATE, 
-      payload: orderInfo 
+    dispatch({
+      type: SUCCESS_ORDER_CREATE,
+      payload: orderInfo
     });
-    dispatch({ type: EMPTY_CART,})
+    dispatch({ type: EMPTY_CART, })
     localStorage.setItem('orderInfo', JSON.stringify(orderInfo));
     localStorage.removeItem("cartItems");
     return orderInfo;
@@ -247,21 +247,21 @@ export const createOrder = async (dispatch, cart) => {
     console.log(error);
     dispatch({ type: FAIL_ORDER_CREATE, payload: error });
     return null;
-  }  
+  }
 };
 
 export const requestOrderDetail = async (dispatch, orderId) => {
   dispatch({ type: BEGIN_ORDER_DETAIL });
   try {
     const order = await getOrderById(orderId);
-    dispatch({ 
+    dispatch({
       type: SUCCESS_ORDER_DETAIL,
       payload: order
     });
   } catch (error) {
-    dispatch({ 
-      type: FAIL_ORDER_DETAIL, 
-      payload: error 
+    dispatch({
+      type: FAIL_ORDER_DETAIL,
+      payload: error
     });
   }
 }
@@ -272,37 +272,37 @@ export const resetOrder = (dispatch) => {
 
 export const checkLogin = (dispatch) => {
   const isLogin = checkLoginApi();
-  if(!isLogin) {
+  if (!isLogin) {
     localStorage.removeItem('orderInfo')
-    dispatch({ type: LOGOUT_REQUEST });    
+    dispatch({ type: LOGOUT_REQUEST });
   }
   return isLogin;
 }
-export const storeOrderId=async (dispatch) => {
-  try{
-    const userOrder =await getOrderByUser();
+export const storeOrderId = async (dispatch) => {
+  try {
+    const userOrder = await getOrderByUser();
     console.log(userOrder);
-    dispatch({ 
-      type:GET_ORDER_BY_USER,
-      payload:userOrder
+    dispatch({
+      type: GET_ORDER_BY_USER,
+      payload: userOrder
     });
     return userOrder;
-  }catch (error) {
-   
+  } catch (error) {
+
     console.error(error);
   }
 }
-export const storeOrderItem=async (dispatch) => {
-  try{
-    const userOrderItem =await getOrderItemByUser();
-    console.log(userOrderItem );
-    dispatch({ 
-      type:GET_ORDER_ITEM_BY_USER,
-      payload:userOrderItem 
+export const storeOrderItem = async (dispatch) => {
+  try {
+    const userOrderItem = await getOrderItemByUser();
+    console.log(userOrderItem);
+    dispatch({
+      type: GET_ORDER_ITEM_BY_USER,
+      payload: userOrderItem
     });
-    return userOrderItem ;
-  }catch (error) {
-   
+    return userOrderItem;
+  } catch (error) {
+
     console.error(error);
   }
 }
